@@ -14,7 +14,7 @@ rbinom(15, prob = 0.5, size = 1)
 # [1] 1 0 1 1 1 1 1 1 1 0 0 1 0 1 0
 ```
 
-在伯努利试验中，成功和失败的概率可能不相等，但只要这些概率之和等于1就行。比如我们想将12个球扔进两个盒子，球其落入右边的盒子概率为![](http://latex.codecogs.com/gif.latex?frac{2}{3}),落入左边的盒子概率为![](http://latex.codecogs.com/gif.latex?frac{1}{3})。仍可以用`rbinom`函数进行模拟（1代表球进入右盒子，0代表进入左盒子）：
+在伯努利试验中，成功和失败的概率可能不相等，但只要这些概率之和等于1就行。比如我们想将12个球扔进两个盒子，球其落入右边的盒子概率为![](http://latex.codecogs.com/gif.latex?\frac{2}{3}),落入左边的盒子概率为![](http://latex.codecogs.com/gif.latex?\frac{1}{3})。仍可以用`rbinom`函数进行模拟（1代表球进入右盒子，0代表进入左盒子）：
 ```R
 rbinom(12, prob = 2/3, size = 1)
  
@@ -25,10 +25,9 @@ rbinom(12, prob = 2/3, size = 1)
 
 ## 二项分布
 
-二项分布是这样一种分布，假设进行n次伯努利试验，每次实验成功（发生）的概率为p，失败（不发生）的概率为1−p，那么成功的次数为k的概率分布公式为(简记为$X \sim B(n,p)$)：
-$$
-P(X=k) = \frac{n!}{(n-k)!k!} p^k (1-p)^{n-k} = C^k_n p^k (1-p)^{n-k}
-$$
+二项分布是这样一种分布，假设进行n次伯努利试验，每次实验成功（发生）的概率为p，失败（不发生）的概率为1−p，那么成功的次数为k的概率分布公式为(简记为![](http://latex.codecogs.com/gif.latex?X%20\sim%20B(n,p)))：
+
+![](http://latex.codecogs.com/gif.latex?P(X=k)%20=%20\frac{n!}{(n-k)!k!}%20p^k%20(1-p)^{n-k}%20=%20C^k_n%20p^k%20(1-p)^{n-k})
 
 例如在15次伯努利试验中，成功的概率为0.3，成功的次数为4的概率为：
 ```
@@ -47,11 +46,10 @@ lines(probabilities, lwd = 2)
 ## 泊松分布
 
 在二项分布中，当成功的概率p且很小，试验次数n较大大时（具体的说是n大于20以及p小于0.05），二项式分布![](http://latex.codecogs.com/gif.latex?X%20\sim%20B(n,p))可以用参数![](http://latex.codecogs.com/gif.latex?\lambda=np)的泊松分布来近似，此时泊松分布的概率公式为：
-$$
-P(X=k)= \frac{\lambda^k e^{-\lambda}}{k!}.
-$$
 
-例1:例如有一种DNA长度为10000的病毒在复制时的突变率为0.0005，该病毒DNA复制一次中碱基发生突变的个数的概率分布就可以用泊松分布来表示(x为突变的个数，$\lambda = 10000\times 0.0005=5$)，在R中可以使用`dpois`函数表示：
+![](http://latex.codecogs.com/gif.latex?P(X=k)=%20\frac{\lambda^k%20e^{-\lambda}}{k!}.)
+
+例1:例如有一种DNA长度为10000的病毒在复制时的突变率为0.0005，该病毒DNA复制一次中碱基发生突变的个数的概率分布就可以用泊松分布来表示(x为突变的个数，![](http://latex.codecogs.com/gif.latex?\lambda%20=%2010000\times%200.0005=5))，在R中可以使用`dpois`函数表示：
 ```
 dpois(x, lambda = 5)
 ```
@@ -85,7 +83,9 @@ dpois(3, lambda = 5)
 0.5**7*exp(-0.5)/factorial(7)
 ```
 超过7次的概率为:
+
 ![](http://latex.codecogs.com/gif.latex?P(X%20\geq%207)=%20\sum_{k=7}^\infty%20P(X=k)=1-P(X%20\leq%206).)
+
 在R中可以使用`ppois`函数
 ```
 ppois(6, 0.5, lower.tail = FALSE)
