@@ -14,7 +14,7 @@ rbinom(15, prob = 0.5, size = 1)
 # [1] 1 0 1 1 1 1 1 1 1 0 0 1 0 1 0
 ```
 
-在伯努利试验中，成功和失败的概率可能不相等，但只要这些概率之和等于1就行。比如我们想将12个球扔进两个盒子，球其落入右边的盒子概率为$\frac{2}{3}$,落入左边的盒子概率为$\frac{1}{3}$。仍可以用`rbinom`函数进行模拟（1代表球进入右盒子，0代表进入左盒子）：
+在伯努利试验中，成功和失败的概率可能不相等，但只要这些概率之和等于1就行。比如我们想将12个球扔进两个盒子，球其落入右边的盒子概率为![](http://latex.codecogs.com/gif.latex?frac{2}{3}),落入左边的盒子概率为![](http://latex.codecogs.com/gif.latex?frac{1}{3})。仍可以用`rbinom`函数进行模拟（1代表球进入右盒子，0代表进入左盒子）：
 ```R
 rbinom(12, prob = 2/3, size = 1)
  
@@ -46,7 +46,7 @@ lines(probabilities, lwd = 2)
 
 ## 泊松分布
 
-在二项分布中，当成功的概率p且很小，试验次数n较大大时（具体的说是n大于20以及p小于0.05），二项式分布$X \sim B(n,p)$可以用参数$\lambda=np$的泊松分布来近似，此时泊松分布的概率公式为：
+在二项分布中，当成功的概率p且很小，试验次数n较大大时（具体的说是n大于20以及p小于0.05），二项式分布![](http://latex.codecogs.com/gif.latex?X%20\sim%20B(n,p))可以用参数![](http://latex.codecogs.com/gif.latex?\lambda=np)的泊松分布来近似，此时泊松分布的概率公式为：
 $$
 P(X=k)= \frac{\lambda^k e^{-\lambda}}{k!}.
 $$
@@ -57,9 +57,7 @@ dpois(x, lambda = 5)
 ```
 
 那么该病毒DNA复制一次中有3个碱基发生突变的概率为：
-$$
-P(X=3)= \frac{5^3 \times e^{-5}}{3!}=0.1403739
-$$
+![](http://latex.codecogs.com/gif.latex?P(X=3)=%20\frac{5^3%20\times%20e^{-5}}{3!}=0.1403739)
 ```
 dpois(3, lambda = 5)
 
@@ -75,9 +73,7 @@ dpois(3, lambda = 5)
 ![](https://github.com/jingbozhou/Study_in_Biostatistics/raw/master/Figure/1-e100-1.png)
 
 上述ELISA的问题服从泊松分布，其中$\lambda=np=50 \times 0.01=0.5$，那么某位点在不是表位的情况下7次被识别成表位的概率为：
-$$
-P(X=7)= \frac{0.5^7 \times e^{-0.5}}{7!}=0.0000009401827
-$$
+![](http://latex.codecogs.com/gif.latex?P(X=7)=%20\frac{0.5^7%20\times%20e^{-0.5}}{7!}=0.0000009401827)
 
 
 ```
@@ -89,9 +85,7 @@ $$
 0.5**7*exp(-0.5)/factorial(7)
 ```
 超过7次的概率为:
-$$
-P(X \geq 7)= \sum_{k=7}^\infty P(X=k)=1-P(X \leq 6).
-$$
+![](http://latex.codecogs.com/gif.latex?P(X%20\geq%207)=%20\sum_{k=7}^\infty%20P(X=k)=1-P(X%20\leq%206).)
 在R中可以使用`ppois`函数
 ```
 ppois(6, 0.5, lower.tail = FALSE)
@@ -105,14 +99,12 @@ ppois(6, 0.5, lower.tail = FALSE)
 ## 多项式分布
 
 上面的例子都只有两种可能结果：硬币朝上或朝下，病毒DNA核苷酸突变或者不突变，蛋白某位点是表位或者不是表位。如果多于两种可能的结果，比如DNA上有四种核苷酸（A，T，C，G），我们想得到某种核苷酸出现的概率的话用二项分布就不合适了，此时就需要用多项式分布（Multinomial Distribution），多项式分布是二项式分布的推广。其定义是在n次试验中，每次试验的结果有m种，这m个结果发生的概率互斥且和为1（每种结果的概率为$p_1,...,p_m$，$p_1+...+p_m=1$），则观察到$x_1,...,x_m$这种结果的概率为：
+
 ![](http://latex.codecogs.com/gif.latex?P(x_1,x_2,...,x_m%20|%20p_1,...,p_m)%20=\frac{n!}{x_1!x_2!\cdots%20x_m!}%20p_1^{x_1}\,p_2^{x_2}%20\cdots%20p_m^{x_m})
 
 例1:假设DNA上碱基（A，T，C，G）出现的概率相等，即$p_A=p_C=p_G=p_T=0.25$，那么出现DNA序列中出现AAAATT的概率为多少？我们用多项式分布来解决这个问题：
-$$
-P(4,2,0,0|0.25,0.25,0.25,0.25)=\frac{6\times 5\times 4\times 3\times 2\times 1}{4\times 3\times 2\times 1 \times 2\times 1}
-\times \frac{1}{4^6}
-=\frac{15}{4^6}\simeq 0.0037.
-$$
+
+![](http://latex.codecogs.com/gif.latex?P(4,2,0,0|0.25,0.25,0.25,0.25)=\frac{6\times%205\times%204\times%203\times%202\times%201}{4\times%203\times%202\times%201%20\times%202\times%201}%20\times%20\frac{1}{4^6}%20=\frac{15}{4^6}\simeq%200.0037)
 
 在R中可以用`dmultinom`函数：
 ```R
